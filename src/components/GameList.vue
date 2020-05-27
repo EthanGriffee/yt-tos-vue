@@ -1,12 +1,8 @@
 <template>
   <div>
     <div>
-        <div> 
-          {{gameId}}
-          {{game}}
-        </div>
-        <div v-for="player in players" :key="player.username">
-
+        <div v-for="game in games" :key="game.id">
+            {{game.id}}
         </div>
     </div>
     </div>
@@ -14,31 +10,25 @@
 
 <script>
 export default {
-  data() {
-    return {
-        gameId:this.$route.params.id 
-    }
-  },
-  name: 'game',
+  name: 'gamelist',
   props: {
-    game: Object,
-    players: Array
+    games: Array
   },
   created () {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getGames()
+    this.getAllGames()
   },
   watch: {
     // call again the method if the route changes
     '$route': 'getGames'
   },
   methods: {
-    async getGames() {
+    async getAllGames() {
         try {
-            const response = await fetch('http://localhost:8080/api/games/' + this.gameId)
+            const response = await fetch('http://localhost:8080/api/games')
             const data = await response.json()
-            this.game = data
+            this.games = data
         } catch (error) {
             console.error(error)
         }
