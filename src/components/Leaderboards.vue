@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'game',
+  name: 'leaderboard',
   props: {
     players: Array
   },

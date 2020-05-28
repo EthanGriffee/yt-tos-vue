@@ -3,6 +3,7 @@ import App from './App.vue'
 import Game from './components/Game.vue'
 import GameList from './components/GameList.vue'
 import VueRouter from 'vue-router'
+import Leaderboards from './components/Leaderboards.vue'
 
 import "bootstrap";
 // import { library } from "@fortawesome/fontawesome-svg-core";
@@ -19,11 +20,16 @@ const router = new VueRouter({
   routes: [
     {
       path:"/games/:id",
+      name: "gameItem",
       component: Game
     },
     {
       path:"/games",
       component: GameList
+    },
+    {
+      path:"/leaderboards",
+      component: Leaderboards
     }
   ]
 })

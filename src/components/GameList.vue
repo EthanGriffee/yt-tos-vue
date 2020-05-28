@@ -2,7 +2,7 @@
   <div>
     <div>
         <div v-for="game in games" :key="game.id">
-            {{game.id}}
+            <div @click="goToGame(game.id)">{{game.id}} </div>
         </div>
     </div>
     </div>
@@ -32,6 +32,9 @@ export default {
         } catch (error) {
             console.error(error)
         }
+    },
+    goToGame(id) {
+      this.$router.push({name:'gameItem',params:{id:id}})
     }
   }
 }

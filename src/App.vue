@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-link class=btn to="/"> RETURN TO BASE </router-link> 
+    <NavBar> </NavBar>
     <router-view>
     </router-view>
   </div>
@@ -8,10 +8,12 @@
 
 <script>
 
+import NavBar from './components/NavBar'
 
 export default {
   name: 'App',
   components: {
+    NavBar
   }
 }
 </script>
