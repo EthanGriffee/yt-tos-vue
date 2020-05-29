@@ -2,7 +2,9 @@
   <div>
     <div>
         <div v-for="game in games" :key="game.id">
+          <div class=row>
             <div @click="goToGame(game.id)">{{game.id}} </div>
+          </div>
         </div>
     </div>
     </div>
@@ -21,7 +23,7 @@ export default {
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'getGames'
+    '$route': 'getAllGames'
   },
   methods: {
     async getAllGames() {

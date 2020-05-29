@@ -28,7 +28,7 @@ const router = new VueRouter({
       component: GameList
     },
     {
-      path:"/leaderboards",
+      path:"/leaderboard",
       component: Leaderboards
     }
   ]
