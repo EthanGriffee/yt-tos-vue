@@ -15,7 +15,7 @@
                 </tr>
             </thead>
         <tbody v-for="stat in stats" :key="stat.player.name">
-          <th> {{stat.player.name}} </th>
+          <th @click="goToPlayer(stat.player.name)"> {{stat.player.name}} </th>
           <th> {{stat.games_played}} </th>
           <th> {{stat.games_won}} </th>
           <th> {{stat.games_lost}} </th>
@@ -58,6 +58,9 @@ export default {
         } catch (error) {
             console.error(error)
         }
+    },
+    goToPlayer(name) {
+      this.$router.push({name:'playerProfile',params:{name:name}})
     },
     sortHelp(name) {
       let comp, comp2

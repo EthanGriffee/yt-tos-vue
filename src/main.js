@@ -5,6 +5,7 @@ import GameList from './components/GameList.vue'
 import Home from './components/Home.vue'
 import VueRouter from 'vue-router'
 import Leaderboards from './components/Leaderboards.vue'
+import PlayerProfile from './components/PlayerProfile.vue'
 
 import "bootstrap";
 // import { library } from "@fortawesome/fontawesome-svg-core";
@@ -40,6 +41,11 @@ const router = new VueRouter({
     {
       path:"/leaderboard",
       component: Leaderboards
+    },
+    {
+      path: "/players/:name",
+      component: PlayerProfile,
+      name: "playerProfile"
     }
   ]
 })

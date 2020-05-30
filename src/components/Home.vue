@@ -5,8 +5,9 @@
             <div class="header-content">
                 <div class="header-content-inner">
                     <h1 style="font-size: 35px;">THE NUT LAB</h1>
-                    <hr>
+                    <iframe width="600" height="340" src="https://www.youtube.com/embed/videoseries?list=UU1_ltvjwtMaV72xAAJmgaKg" frameborder="0" allowfullscreen></iframe>
                     <p>WELCOME TO GENERAL PEANUTS WEBSITE, HERE YOU CAN FIND ALL THINGS PEANUT</p>
+                    <hr>
                 </div>
             </div>
         </header>
