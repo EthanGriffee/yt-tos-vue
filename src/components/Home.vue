@@ -1,0 +1,38 @@
+<template>
+  <div>
+    <div>
+        <header>
+            <div class="header-content">
+                <div class="header-content-inner">
+                    <h1 style="font-size: 35px;">THE NUT LAB</h1>
+                    <hr>
+                    <p>WELCOME TO GENERAL PEANUTS WEBSITE, HERE YOU CAN FIND ALL THINGS PEANUT</p>
+                </div>
+            </div>
+        </header>
+    </div>
+    </div>
+</template>
+
+<script>
+//YT API KEY : AIzaSyCwszaEE6zEku7qPf18FSW2Rg_cwomBzzY
+export default {
+  name: 'home'
+}
+</script>
+
+<style scoped>
+.header-content {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    text-align: center;
+    color: #fff;
+    background-image: url(../assets/backgroundpeanuts.jpeg);
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    display: block;
+}
+</style>

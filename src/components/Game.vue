@@ -5,8 +5,9 @@
           {{gameId}}
           {{game}}
         </div>
-        <div v-for="player in players" :key="player.username">
-
+        <div class=row v-for="played in players" :key="played.username">
+          {{played.player.name}}
+          {{played.role}}
         </div>
     </div>
     </div>
@@ -36,9 +37,10 @@ export default {
   methods: {
     async getGames() {
         try {
-            const response = await fetch('http://localhost:8080/api/games/' + this.gameId)
+            const response = await fetch('http://localhost:8080/api/games/' + this.gameId + "/players")
             const data = await response.json()
-            this.game = data
+            this.players = data
+            this.game = this.players.get(0).game;
         } catch (error) {
             console.error(error)
         }

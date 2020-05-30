@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import Game from './components/Game.vue'
 import GameList from './components/GameList.vue'
+import Home from './components/Home.vue'
 import VueRouter from 'vue-router'
 import Leaderboards from './components/Leaderboards.vue'
 
@@ -18,6 +19,15 @@ Vue.config.productionTip = false
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    { 
+      path:"*", 
+      redirect: { name: 'home' }
+    },
+    {
+      path:"/home",
+      name:"home",
+      component: Home
+    },
     {
       path:"/games/:id",
       name: "gameItem",
