@@ -16,7 +16,6 @@
 </template>
 
 <script>
-//YT API KEY : AIzaSyCwszaEE6zEku7qPf18FSW2Rg_cwomBzzY
 export default {
   name: 'home'
 }

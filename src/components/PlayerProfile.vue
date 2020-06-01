@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import {CONFIG} from '../config.js'
+
 export default {
   data() {
     return {
@@ -29,7 +31,7 @@ export default {
   methods: {
     async getPlayedGames() {
         try {
-            const response = await fetch('http://localhost:8080/pi/players/' + this.name)
+            const response = await fetch(`${CONFIG.api}players/${this.name}`)
             const data = await response.json()
             this.player = data
         } catch (error) {

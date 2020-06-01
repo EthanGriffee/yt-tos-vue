@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import {CONFIG} from '../config.js'
+
 export default {
   name: 'gamelist',
   props: {
@@ -28,7 +30,7 @@ export default {
   methods: {
     async getAllGames() {
         try {
-            const response = await fetch('http://localhost:8080/api/games')
+            const response = await fetch(`${CONFIG.api}games`)
             const data = await response.json()
             this.games = data
         } catch (error) {

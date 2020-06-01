@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import {CONFIG} from '../config.js'
+
 export default {
   data() {
     return {
@@ -52,7 +54,7 @@ export default {
   methods: {
     async getAllStats() {
         try {
-            const response = await fetch('http://localhost:8080/api/stats')
+            const response = await fetch(`${CONFIG.api}stats`)
             const data = await response.json()
             this.stats = data
         } catch (error) {
