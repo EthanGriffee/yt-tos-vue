@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <table class="table table-hover table-sm">
+      <table class="table table-hover table-sm table-dark">
             <thead>
                 <tr>
                 <th @click="sortByUsername()"> Username</th> 
@@ -20,7 +20,7 @@
           <th> {{stat.games_won}} </th>
           <th> {{stat.games_lost}} </th>
           <th> {{stat.games_drawn}} </th>
-          <th> {{stat.games_won / stat.games_lost}} </th>
+          <th>  {{stat.games_won / stat.games_lost}} </th>
           <th> {{stat.mvps}} </th>
           <th> {{stat.lvps}} </th>
         </tbody>
@@ -113,3 +113,4 @@ export default {
   }
 }
 </script>
+

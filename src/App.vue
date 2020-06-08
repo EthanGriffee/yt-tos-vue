@@ -37,8 +37,8 @@ export default {
 }
 
 #footer {
-  position: absolute;
-  width:  100%;
-  bottom:  0px;
+  bottom: 0%;
+  position: fixed;
+  width: 100%
 }
 </style>

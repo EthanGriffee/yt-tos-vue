@@ -13,7 +13,7 @@
                 <font-awesome-icon v-if="game.lvp.name == played.player.name" icon="poo" style="color:brown" spin/>
                 <font-awesome-icon v-if="game.mvp.name == played.player.name" icon="award" style="color:black"/>
               </div>
-              <div class=col-5> {{played.player.name}} </div>
+              <div class=col-5 @click="goToPlayers(played.player.name)"> {{played.player.name}} </div>
               <div class=col-5> {{played.role.name}} </div>
             </div>
           </li>
@@ -59,6 +59,9 @@ export default {
         } catch (error) {
             console.error(error)
         }
+    },
+    goToPlayers(username) {
+      this.$router.push({name:'playerProfile',params:{name:username}})
     },
     colorOfBox(role) {
       switch(role.type) {
@@ -136,8 +139,11 @@ export default {
 
 <style scoped>
 .all {
-  background-color: black;
-  color: white;
+    background-image: url(../assets/tos-background.png);
+    background-position: center;
+    height: 100%;
+    width:  100%;
+    position: absolute;
 }
 .white {
     color: #fff;

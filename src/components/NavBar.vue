@@ -22,6 +22,6 @@ export default {
 
 <style>
 .navbar {
-  background-color: #D16002;
+  background-color: #Ffcc99;
 }
 </style>
