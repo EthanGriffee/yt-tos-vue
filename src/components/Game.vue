@@ -7,7 +7,7 @@
           <li v-bind:style="colorOfBox(played.role)" class=white >
             <div class=row>
               <div class=col-1> 
-                <font-awesome-icon v-if="determineWin(played.role.type)" icon="trophy" style="color:gold"/>
+                <font-awesome-icon v-if="determineWin(played)" icon="trophy" style="color:gold"/>
               </div>
               <div class=col-1> 
                 <font-awesome-icon v-if="game.lvp.name == played.player.name" icon="poo" style="color:brown" spin/>
@@ -28,14 +28,16 @@
 
 <script>
 import {CONFIG} from '../config.js'
+import determineWinMixin from '../mixins/determineWinMixin'
 
 export default {
+  name: 'game',
   data() {
     return {
         gameId:this.$route.params.id 
     }
   },
-  name: 'game',
+  mixins: [determineWinMixin],
   props: {
     game: Object,
     players: Array
@@ -105,33 +107,6 @@ export default {
           break;
       }
       return {backgroundColor: 'black'}
-    },
-    determineWin(role_type) {
-      switch(role_type) {
-        case 'JAILOR':
-          /* falls through */
-        case 'TOWN_INVESTIGATIVE':
-          /* falls through */
-        case 'TOWN_KILLING':
-          /* falls through */
-        case 'TOWN_PROTECTIVE':
-          /* falls through */
-        case 'TOWN_SUPPORT':
-          /* falls through */
-          return this.game.winner == "TOWN"
-        case 'GODFATHER':
-          /* falls through */
-        case 'MAFIOSO':
-          /* falls through */
-        case 'RANDOM_MAFIA':
-          /* falls through */
-          return this.game.winner == "MAFIA"
-        case 'NEUTRAL_EVIL':
-          return this.game.neWin;
-        case 'NEUTRAL_KILLING':
-          return this.game.winner == "NK"
-      }
-      return false
     }
   }
 }

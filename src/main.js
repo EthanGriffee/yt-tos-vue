@@ -10,11 +10,11 @@ import PlayerProfile from './components/PlayerProfile.vue'
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPoo, faTrophy, faAward} from '@fortawesome/free-solid-svg-icons'
+import { faPoo, faTrophy, faAward, faTimes} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 
-library.add(faPoo, faTrophy, faAward)
+library.add(faPoo, faTrophy, faAward, faTimes)
 
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

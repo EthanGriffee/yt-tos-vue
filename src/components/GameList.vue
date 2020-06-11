@@ -13,9 +13,11 @@
 
 <script>
 import {CONFIG} from '../config.js'
+import goToGameMixin from '../mixins/goToGameMixin'
 
 export default {
   name: 'gamelist',
+  mixins: [goToGameMixin],
   props: {
     games: Array
   },
@@ -37,9 +39,6 @@ export default {
         } catch (error) {
             console.error(error)
         }
-    },
-    goToGame(id) {
-      this.$router.push({name:'gameItem',params:{id:id}})
     }
   }
 }

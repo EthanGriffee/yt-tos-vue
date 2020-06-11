@@ -2,7 +2,8 @@
   <div id=app>
     <div>
     <NavBar> </NavBar>
-    <router-view>
+    <router-view
+    @determineWin="determineWin">
     </router-view>
   </div>
     <div id=footer>
