@@ -4,7 +4,9 @@
         <div v-for="game in games" :key="game.id">
           <div class="row ml-4">
             <div @click="goToGame(game.id)">{{game.id}} </div>
-            {{game.winType}}
+            {{game.winner}}
+            {{game.mvp.name}}
+            {{game.lvp.name}}
           </div>
         </div>
     </div>
