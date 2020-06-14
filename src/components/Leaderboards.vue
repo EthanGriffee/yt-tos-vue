@@ -1,6 +1,12 @@
 <template>
   <div>
     <div>
+      <div> 
+        <div class="container-1">
+          <font-awesome-icon class=search-icon icon="search" style="color:white"/>
+          <input type="search" id="search" placeholder="Name..."/>
+        </div>
+      </div>
       <table class="table table-hover table-sm table-dark">
             <thead>
                 <tr>
@@ -114,3 +120,32 @@ export default {
 }
 </script>
 
+<style scoped>
+ .container-1{
+  width: 300px;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+  float:right;
+  margin: 10px 10px 10px 0px;
+}
+.container-1 input#search{
+  width: 300px;
+  height: 50px;
+  background: #2b303b;
+  border: none;
+  font-size: 10pt;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.container-1 .search-icon{
+  position: absolute;
+  margin-left: 5px;
+  top: 30%;
+  color: #4f5b66;
+}
+
+</style>
