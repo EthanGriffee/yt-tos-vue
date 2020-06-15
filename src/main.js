@@ -49,6 +49,11 @@ const router = new VueRouter({
       component: Leaderboards
     },
     {
+      path:"/leaderboard?search=:search",
+      component: Leaderboards,
+      name: "searchedLeaderboard"
+    },
+    {
       path: "/players/:name",
       component: PlayerProfile,
       name: "playerProfile"

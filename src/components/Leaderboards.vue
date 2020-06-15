@@ -3,8 +3,8 @@
     <div>
       <div> 
         <div class="container-1">
-          <font-awesome-icon class=search-icon icon="search" style="color:white"/>
-          <input type="search" id="search" placeholder="Name..."/>
+          <font-awesome-icon @click="onSearch()" class=search-icon icon="search" style="color:white"/>
+          <input v-model="searched" type="search" id="search" placeholder="Name..."/>
         </div>
       </div>
       <table class="table table-hover table-sm table-dark">
@@ -46,29 +46,42 @@ export default {
   },
   name: 'leaderboards',
   props: {
-    stats: Array
+    stats: Array, 
+    searched: String
   },
-  created () {
+  created() {
     // fetch the data when the view is created and the data is
     // already being observed
-    this.getAllStats()
+    this.getStats(this.$route.query.search)
   },
   watch: {
     // call again the method if the route changes
-    '$route': 'getAllStats'
+    '$route' (to) {
+      this.getStats(to.params.search)
+    }
   },
   methods: {
-    async getAllStats() {
+    async getStats(searching) {
+      console.log(searching)
         try {
-            const response = await fetch(`${CONFIG.api}stats`)
+            let response;
+            if (searching) {
+              response = await fetch(`${CONFIG.api}stats/${searching}`)
+            }
+            else {
+              response = await fetch(`${CONFIG.api}stats`)
+            }
             const data = await response.json()
             this.stats = data
         } catch (error) {
             console.error(error)
         }
     },
+    onSearch() {
+      this.$router.push({name:'searchedLeaderboard', params:{search:this.searched}})
+    },
     goToPlayer(name) {
-      this.$router.push({name:'playerProfile',params:{name:name}})
+      this.$router.push({name:'playerProfile', params:{name:name}})
     },
     sortHelp(name) {
       let comp, comp2
