@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import {CONFIG} from '../config.js'
 import determineWinMixin from '../mixins/determineWinMixin'
 import goToGameMixin from '../mixins/goToGameMixin'
 
@@ -42,7 +41,7 @@ export default {
   methods: {
     async getPlayedGames() {
         try {
-            const response = await fetch(`${CONFIG.api}players/${this.name}/playedgames`)
+            const response = await fetch(`${process.env.VUE_APP_API_URL}players/${this.name}/playedgames`)
             const data = await response.json()
             this.playedGames = data
         } catch (error) {

@@ -54,7 +54,7 @@ export default {
   methods: {
     async getGames() {
         try {
-            const response = await fetch(`${CONFIG.api}games/${this.gameId}/players`)
+            const response = await fetch(`${process.env.VUE_APP_API_URL}games/${this.gameId}/players`)
             const data = await response.json()
             this.players = data
             this.game = this.players[0].game;

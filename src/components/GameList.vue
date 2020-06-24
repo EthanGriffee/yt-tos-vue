@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import {CONFIG} from '../config.js'
 import goToGameMixin from '../mixins/goToGameMixin'
 
 export default {
@@ -35,7 +34,7 @@ export default {
   methods: {
     async getAllGames() {
         try {
-            const response = await fetch(`${CONFIG.api}games`)
+            const response = await fetch(`${process.env.VUE_APP_API_URL}games`)
             const data = await response.json()
             this.games = data
         } catch (error) {

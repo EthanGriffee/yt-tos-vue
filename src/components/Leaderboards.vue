@@ -66,10 +66,10 @@ export default {
         try {
             let response;
             if (searching) {
-              response = await fetch(`${CONFIG.api}stats/${searching}`)
+              response = await fetch(`${process.env.VUE_APP_API_URL}stats/${searching}`)
             }
             else {
-              response = await fetch(`${CONFIG.api}stats`)
+              response = await fetch(`${process.env.VUE_APP_API_URL}stats`)
             }
             const data = await response.json()
             this.stats = data
