@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import {CONFIG} from '../config.js'
 import determineWinMixin from '../mixins/determineWinMixin'
 
 export default {
