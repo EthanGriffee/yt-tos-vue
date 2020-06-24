@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import {CONFIG} from '../config.js'
 
 export default {
   data() {
