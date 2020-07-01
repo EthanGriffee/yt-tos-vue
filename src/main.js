@@ -10,6 +10,7 @@ import PlayerProfile from './components/PlayerProfile.vue'
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPoo, faTrophy, faAward, faTimes, faSearch} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
