@@ -3,6 +3,7 @@ import App from './App.vue'
 import Game from './components/Game.vue'
 import GameList from './components/GameList.vue'
 import Home from './components/Home.vue'
+import Upload from './components/Upload.vue'
 import VueRouter from 'vue-router'
 import Leaderboards from './components/Leaderboards.vue'
 import PlayerProfile from './components/PlayerProfile.vue'
@@ -47,6 +48,10 @@ const router = new VueRouter({
     {
       path:"/leaderboard",
       component: Leaderboards
+    },
+    {
+      path:"/upload",
+      component: Upload
     },
     {
       path:"/leaderboard?search=:search",
