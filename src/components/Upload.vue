@@ -53,7 +53,7 @@
                     </select>
                 </div>
                 <div>
-                <input v-model="newgame.game.yturl" placeholder="www.youtube.com/?????">
+                <input v-model="newgame.game.youtubeURL" placeholder="www.youtube.com/?????">
                 </div>
             </div>
         </div>
@@ -75,7 +75,7 @@ export default {
             game: {
                 winner: "TOWN",
                 neWin: false,
-                yturl: ""
+                youtubeURL: ""
             },
             mvp: 0,
             lvp: 0,
