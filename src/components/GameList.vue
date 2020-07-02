@@ -2,11 +2,11 @@
   <div>
     <div>
         <div v-for="game in games" :key="game.id">
-          <div class="row ml-4">
-            <div @click="goToGame(game.id)">{{game.id}} </div>
-            {{game.winner}}
-            {{game.mvp.name}}
-            {{game.lvp.name}}
+          <div @click="goToGame(game.id)" class="row ml-4">
+            <div class=mr-1> {{game.id}} </div>
+            <div class=mr-1> {{game.winner}} </div>
+            <div class=mr-1> {{game.mvp.name}} </div>
+            <div> {{game.lvp.name}} </div>
           </div>
         </div>
     </div>
