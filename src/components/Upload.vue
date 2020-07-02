@@ -8,7 +8,7 @@
         </div>
         <div class=row>
             <div class=col-6>
-                <div v-for="x in 15" :key="x - 1" class="row mb-1">
+                <div v-for="x in 15" :key="x" class="row mb-1">
                     <div class="col-2 d-flex justify-content-between">
                         <input type="radio" v-model="newgame.mvp" :value="x - 1">
                         <input type="radio" v-model="newgame.lvp" :value="x - 1">
@@ -25,7 +25,7 @@
                     :removable="false"
                     removeButtonClass="ui red button"
                     :height="600"
-                    accept="image/jpeg, image/png, image/gif"
+                    accept="image/png"
                     buttonClass="ui button primary"
                     :customStrings="{
                     upload: '<h1>Upload it!</h1>',
@@ -91,33 +91,57 @@ export default {
     vSelect
   },
   methods: {
-      uploadToS3(image) {
-        var bucket = new AWS.S3({params: {Bucket: 'peanutland'}});
-        var imageFile = {Key: "gameresult", ContentType: image.type, Body: image};
-        bucket.upload(imageFile, function (err, data) {
-            if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
+    onChanged() {
+        var instance = this;
+
+        const tex = require("aws-sdk/clients/textract");
+
+        AWS.config.update({
+            secretAccessKey: process.env.VUE_APP_AWS_SECRET_KEY,
+            accessKeyId: process.env.VUE_APP_AWS_ACCESS_KEY,
+            region: process.env.VUE_APP_AWS_REGION
         });
-      },
-      onChanged(image) {
-          this.uploadToS3(image);
-          var params = {
-              Document: {
-                  S3Object: {
-                      Bucket: 'peanutland',
-                      Name: 'gameresult.png"'
-                  }
-              }
-          }
-          var textract = new AWS.Textract();
-            textract.detectDocumentText(params, function (err, data) {
+
+        var params = {
+            Document: {
+                S3Object: {
+                    Bucket: 'peanutland',
+                    Name: 'gameresult.png'
+                }
+            }
+        }
+        var textract = new tex({apiVersion: '2018-06-27'});
+
+        var bucket = new AWS.S3({params: {Bucket: 'peanutland'}});
+        var imageFile = {Key: 'gameresult.png', Body: this.$refs.pictureInput.file};
+        bucket.upload(imageFile, function (err) {
             if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
-            });
+            else {
+                textract.detectDocumentText(params, function (err, data) {
+                if (err) console.log(err); // an error occurred
+                else {
+                    console.log(data);
+                    var current_user = 0;
+                    var count = 0;
+                    for(var block of data.Blocks) {
+                        if (block.BlockType == "LINE") {
+                            if (count == 0) {
+                                instance.$set(instance.newgame.players, current_user, block.Text)
+                                count += 1;
+                            }
+                            else if (count == 1) count += 1;
+                            else {
+                                instance.$set(instance.newgame.roles, current_user, block.Text)
+                                count = 0;
+                                current_user += 1;
+                            }
 
-      },
-      onRemoved() {
+                        }
 
+                    }
+                }});
+            }
+        })
       },
       async onSubmit() {
           console.log(this.newgame);
