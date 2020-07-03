@@ -54,7 +54,7 @@ export default {
                 case 'Witch':
                     return {backgroundColor: '#b240ff'}
                 case 'Executioner':
-                    return {backgroundColor: '#e3e3e3'}
+                    return {backgroundColor: '#bdbdbd'}
                 }
                 break;
             case 'NEUTRAL_KILLING':

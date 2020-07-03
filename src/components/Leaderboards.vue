@@ -26,7 +26,7 @@
           <th> {{stat.games_won}} </th>
           <th> {{stat.games_lost}} </th>
           <th> {{stat.games_drawn}} </th>
-          <th>  {{stat.games_won / stat.games_lost}} </th>
+          <th>  {{stat.games_won / (state.games_won + stat.games_lost)}} </th>
           <th> {{stat.mvps}} </th>
           <th> {{stat.lvps}} </th>
         </tbody>
@@ -40,12 +40,12 @@
 export default {
   data() {
     return {
-      last_sorted: "none"
+      last_sorted: "none",
+      stats: ""
     }
   },
   name: 'leaderboards',
   props: {
-    stats: Array, 
     searched: String
   },
   created() {
@@ -118,7 +118,7 @@ export default {
     },
     sortByWinrate() {
       let comp = this.sortHelp("winrate")
-      this.stats.sort((a, b) => a.games_won / a.games_lost > b.games_won / b.games_lost ? comp[0] : comp[1]);
+      this.stats.sort((a, b) => a.games_won / (a.games_won + a.games_lost) > b.games_won / (b.games_won + b.games_lost) ? comp[0] : comp[1]);
     },
     sortByMvps() {
       let comp = this.sortHelp("mvps")

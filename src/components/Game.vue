@@ -20,7 +20,7 @@
         </ul>
       </div>
       <div class= "col-lg-6 col-md-5 col-sm-12"> 
-        <iframe :src="game.youtubeURL" frameborder="0" allowfullscreen></iframe>
+        <iframe :src="youtubeURL" frameborder="0" allowfullscreen></iframe>
       </div>
       </div>
     </div>
@@ -63,6 +63,13 @@ export default {
     },
     goToPlayers(username) {
       this.$router.push({name:'playerProfile',params:{name:username}})
+    }
+  },
+  computed: {
+    // a computed getter
+    youtubeURL: function () {
+      // `this` points to the vm instance
+      return "https://www.youtube.com/embed/" + this.game.youtubeID;
     }
   }
 }

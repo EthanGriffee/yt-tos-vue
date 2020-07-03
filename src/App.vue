@@ -1,10 +1,8 @@
 <template>
   <div id=app>
     <div>
-    <NavBar> </NavBar>
-    <router-view
-    @determineWin="determineWin">
-    </router-view>
+    <NavBar/>
+    <router-view/>
   </div>
     <div id=footer>
       COPYRIGHT 2020

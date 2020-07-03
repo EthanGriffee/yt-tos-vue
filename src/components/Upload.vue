@@ -53,7 +53,11 @@
                     </select>
                 </div>
                 <div>
-                <input v-model="newgame.game.youtubeURL" placeholder="www.youtube.com/?????">
+                <input v-model="newgame.game.youtubeID" placeholder="WHDnGyzdUMI">
+                </div>
+                <div>
+                    <label class=mr-2> Legacy </label>
+                    <input type="checkbox" v-model="legacy"/>
                 </div>
             </div>
         </div>
@@ -75,7 +79,9 @@ export default {
             game: {
                 winner: "TOWN",
                 neWin: false,
-                youtubeURL: ""
+                youtubeID: "",
+                videoTitle: ""
+
             },
             mvp: 0,
             lvp: 0,
@@ -84,6 +90,7 @@ export default {
         },
         possibleroles: [ "Jailor", "Sheriff", "Investigator", "Lookout", "Spy", "Vigilante", "Veteran", "Bodyguard", "Doctor", "Escort", "Mayor", "Medium", "Retributionist", "Transporter", "Godfather",  "Mafioso", "Disguiser", 
             "Forger",  "Framer",  "Janitor",  "Blackmailer",  "Consigliere",  "Consort",  "Jester",  "Witch",  "Executioner",  "Arsonist",  "Werewolf",  "Serial Killer"],
+        legacy: false
     }
   },
   components: {
@@ -115,6 +122,7 @@ export default {
         var bucket = new AWS.S3({params: {Bucket: 'peanutland'}});
         var imageFile = {Key: 'gameresult.png', Body: this.$refs.pictureInput.file};
         bucket.upload(imageFile, function (err) {
+            console.log(instance.legacy);
             if (err) console.log(err, err.stack); // an error occurred
             else {
                 textract.detectDocumentText(params, function (err, data) {
@@ -123,13 +131,14 @@ export default {
                     console.log(data);
                     var current_user = 0;
                     var count = 0;
+                    var count_check = instance.legacy ? -1 : 1;
                     for(var block of data.Blocks) {
                         if (block.BlockType == "LINE") {
                             if (count == 0) {
                                 instance.$set(instance.newgame.players, current_user, block.Text)
                                 count += 1;
                             }
-                            else if (count == 1) count += 1;
+                            else if (count == count_check) count += 1;
                             else {
                                 instance.$set(instance.newgame.roles, current_user, block.Text)
                                 count = 0;
@@ -143,17 +152,25 @@ export default {
             }
         })
       },
-      async onSubmit() {
-          console.log(this.newgame);
-          const response = await fetch(`${process.env.VUE_APP_API_URL}games`, {
+    async onSubmit() {
+
+        console.log(this.newgame);
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${this.newgame.game.youtubeID}&key=${process.env.VUE_APP_YT_API_KEY}`, {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json'
+            }})
+        const data = await response.json()
+        console.log(data);
+        this.newgame.game.videoTitle = data.items[0].snippet.title;
+        const response2 = await fetch(`${process.env.VUE_APP_API_URL}games`, {
                 method: 'POST',
                 body: JSON.stringify(this.newgame),
                 headers: {
                     'content-type': 'application/json'
-                }
-            })
-            console.log(response);
-      }
+                }})
+        console.log(response2.json());
+    }
   }
 }
 </script>
