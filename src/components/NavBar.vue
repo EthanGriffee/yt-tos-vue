@@ -1,17 +1,11 @@
 <template>
-  <div class="navbar navbar-expand-sm">
-        <ul class="nav navbar-nav"> 
-            <li class="nav-item"> 
-                <router-link class="btn btn-sm btn-info text-white mr-4" to="/"> Home </router-link> 
-            </li>
-            <li class="nav-item">
-                <router-link class="btn btn-sm btn-info text-white mr-4" to="/games"> Games </router-link> 
-            </li>
-            <li class="nav-item">
-                <router-link class="btn btn-sm btn-info text-white mr-4" to="/leaderboard"> Leaderboard </router-link> 
-            </li>
-        </ul>
-    </div>
+  <b-navbar>
+    <b-navbar-nav>
+      <b-nav-item to="/home">Home</b-nav-item>
+      <b-nav-item to="/games">Games</b-nav-item>
+      <b-nav-item to="/leaderboard">Leaderboard</b-nav-item>
+    </b-navbar-nav>
+  </b-navbar>
 </template>
 
 <script>

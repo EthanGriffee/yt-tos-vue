@@ -79,9 +79,9 @@ export default {
 .all {
     background-image: url(../assets/tos-background.png);
     background-position: center;
+    position: fixed;
     height: 100%;
     width:  100%;
-    position: absolute;
 }
 .white {
     color: #fff;

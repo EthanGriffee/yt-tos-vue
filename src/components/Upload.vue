@@ -1,5 +1,11 @@
 <template>
     <div class="container mt-2">
+        <b-alert show variant="success" v-if="inserted == 1" @dismissed="inserted=0" dismissible> 
+            Succesfully inserted game!
+        </b-alert>
+        <b-alert show variant="danger" v-if="inserted == 2" @dismissed="inserted=0" dismissible> 
+            Failed to insert game!
+        </b-alert>
         <div class=row>
             <div class="col-1 d-flex justify-content-between mb-3">
                 <font-awesome-icon icon="award" style="color:gold"/>
@@ -90,7 +96,8 @@ export default {
         },
         possibleroles: [ "Jailor", "Sheriff", "Investigator", "Lookout", "Spy", "Vigilante", "Veteran", "Bodyguard", "Doctor", "Escort", "Mayor", "Medium", "Retributionist", "Transporter", "Godfather",  "Mafioso", "Disguiser", 
             "Forger",  "Framer",  "Janitor",  "Blackmailer",  "Consigliere",  "Consort",  "Jester",  "Witch",  "Executioner",  "Arsonist",  "Werewolf",  "Serial Killer"],
-        legacy: false
+        legacy: false,
+        inserted: 0
     }
   },
   components: {
@@ -162,6 +169,7 @@ export default {
             }})
         const data = await response.json()
         console.log(data);
+        if(data == null || data.items.length == 0) this.inserted = 2;
         this.newgame.game.videoTitle = data.items[0].snippet.title;
         const response2 = await fetch(`${process.env.VUE_APP_API_URL}games`, {
                 method: 'POST',
@@ -169,7 +177,8 @@ export default {
                 headers: {
                     'content-type': 'application/json'
                 }})
-        console.log(response2.json());
+        const data2 = await response2.json();
+        this.inserted = data2 == null ? 2 : 1;
     }
   }
 }

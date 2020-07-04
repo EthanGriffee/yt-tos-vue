@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 .header-content {
-    position: absolute;
+    position: fixed;
     height: 100%;
     width: 100%;
     min-height: auto;

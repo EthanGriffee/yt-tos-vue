@@ -7,9 +7,11 @@ import Upload from './components/Upload.vue'
 import VueRouter from 'vue-router'
 import Leaderboards from './components/Leaderboards.vue'
 import PlayerProfile from './components/PlayerProfile.vue'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import "bootstrap";
-import "bootstrap/dist/css/bootstrap.css";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPoo, faTrophy, faAward, faTimes, faSearch} from '@fortawesome/free-solid-svg-icons'
@@ -21,6 +23,7 @@ library.add(faPoo, faTrophy, faAward, faTimes, faSearch)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+Vue.use(BootstrapVue)
 Vue.use(VueRouter);
 Vue.config.productionTip = false
 

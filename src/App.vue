@@ -1,9 +1,7 @@
 <template>
   <div id=app>
-    <div>
-    <NavBar/>
-    <router-view/>
-  </div>
+      <NavBar/>
+      <router-view/>
     <div id=footer>
       COPYRIGHT 2020
     </div>
@@ -23,17 +21,18 @@ export default {
 </script>
 
 <style>
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   background-color:black;
-  position: fixed;
-  height: 100%;
-  width:  100%;
   color: white;
+  min-height: 100vh;
+  border: solid 1px transparent;
 }
+
 
 #footer {
   bottom: 0%;

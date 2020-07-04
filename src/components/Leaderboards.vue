@@ -7,32 +7,34 @@
           <input v-model="searched" type="search" id="search" placeholder="Name..."/>
         </div>
       </div>
-      <table class="table table-hover table-sm table-dark">
-            <thead>
-                <tr>
-                <th @click="sortByUsername()"> Username</th> 
-                <th @click="sortByGamesPlayed()"> Games Played</th> 
-                <th @click="sortByGamesWon()"> Games Won</th>
-                <th @click="sortByGamesLost()"> Games Lost</th> 
-                <th @click="sortByDraws()"> Draws </th>
-                <th @click="sortByWinrate()"> Winrate </th>
-                <th @click="sortByMvps()"> Mvps </th>
-                <th @click="sortByLvps()"> Lvps </th>
-                </tr>
-            </thead>
-        <tbody v-for="stat in stats" :key="stat.player.name">
-          <th @click="goToPlayer(stat.player.name)"> {{stat.player.name}} </th>
-          <th> {{stat.games_played}} </th>
-          <th> {{stat.games_won}} </th>
-          <th> {{stat.games_lost}} </th>
-          <th> {{stat.games_drawn}} </th>
-          <th>  {{stat.games_won / (state.games_won + stat.games_lost)}} </th>
-          <th> {{stat.mvps}} </th>
-          <th> {{stat.lvps}} </th>
-        </tbody>
+      <b-container>
+        <table class="table table-hover table-sm table-dark">
+          <thead>
+              <tr>
+              <th @click="sortByUsername()"> Username</th> 
+              <th @click="sortByGamesPlayed()"> Games Played</th> 
+              <th @click="sortByGamesWon()"> Games Won</th>
+              <th @click="sortByGamesLost()"> Games Lost</th> 
+              <th @click="sortByDraws()"> Draws </th>
+              <th @click="sortByWinrate()"> Winrate </th>
+              <th @click="sortByMvps()"> Mvps </th>
+              <th @click="sortByLvps()"> Lvps </th>
+              </tr>
+          </thead>
+          <tbody v-for="stat in stats" :key="stat.player.name">
+            <th @click="goToPlayer(stat.player.name)"> {{stat.player.name}} </th>
+            <th> {{stat.games_played}} </th>
+            <th> {{stat.games_won}} </th>
+            <th> {{stat.games_lost}} </th>
+            <th> {{stat.games_drawn}} </th>
+            <th>  {{stat.games_won / (stat.games_won + stat.games_lost)}} </th>
+            <th> {{stat.mvps}} </th>
+            <th> {{stat.lvps}} </th>
+          </tbody>
         </table>
+      </b-container>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
