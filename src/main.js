@@ -38,36 +38,63 @@ const router = new VueRouter({
     {
       path:"/home",
       name:"home",
-      component: Home
+      component: Home,
+      meta: {
+        title: () => {return 'Home - GeneralPeanut'}
+      }
     },
     {
       path:"/games/:id",
       name: "gameItem",
-      component: Game
+      component: Game,
+      meta: {
+        title: () => {return 'Game - GeneralPeanut'}
+      }
     },
     {
       path:"/games",
-      component: GameList
+      component: GameList,
+      meta: {
+        title: () => {return 'Games - GeneralPeanut'}
+      }
     },
     {
       path:"/leaderboard",
-      component: Leaderboards
+      component: Leaderboards,
+      meta: {
+        title: () => {return 'LeaderBoard - GeneralPeanut'}
+      }
     },
     {
       path:"/upload",
-      component: Upload
+      component: Upload,
+      meta: {
+        title: () => {return 'Upload - GeneralPeanut'}
+      }
     },
     {
       path:"/leaderboard?search=:search",
       component: Leaderboards,
-      name: "searchedLeaderboard"
+      name: "searchedLeaderboard",
+      meta: {
+        title: () => {return 'LeaderBoard - GeneralPeanut'}
+      }
     },
     {
       path: "/players/:name",
       component: PlayerProfile,
-      name: "playerProfile"
+      name: "playerProfile",
+      meta: {
+        title: () => {return 'Player - GeneralPeanut'}
+      }
     }
   ]
+})
+
+router.afterEach((to) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title(to)
+  })
 })
 
 new Vue({
