@@ -8,30 +8,14 @@
         </div>
       </div>
       <b-container>
-        <table class="table table-hover table-sm table-dark">
-          <thead>
-              <tr>
-              <th @click="sortByUsername()"> Username</th> 
-              <th @click="sortByGamesPlayed()"> Games Played</th> 
-              <th @click="sortByGamesWon()"> Games Won</th>
-              <th @click="sortByGamesLost()"> Games Lost</th> 
-              <th @click="sortByDraws()"> Draws </th>
-              <th @click="sortByWinrate()"> Winrate </th>
-              <th @click="sortByMvps()"> Mvps </th>
-              <th @click="sortByLvps()"> Lvps </th>
-              </tr>
-          </thead>
-          <tbody v-for="stat in stats" :key="stat.player.name">
-            <th @click="goToPlayer(stat.player.name)"> {{stat.player.name}} </th>
-            <th> {{stat.games_played}} </th>
-            <th> {{stat.games_won}} </th>
-            <th> {{stat.games_lost}} </th>
-            <th> {{stat.games_drawn}} </th>
-            <th>  {{stat.games_won / (stat.games_won + stat.games_lost)}} </th>
-            <th> {{stat.mvps}} </th>
-            <th> {{stat.lvps}} </th>
-          </tbody>
-        </table>
+        <b-table small dark selectable striped hover @row-selected="goToPlayer" :primary-key="player" :items="stats" :fields="fields" :sort-compare="sortCompare">
+          <template v-slot:cell(player)="data">
+            {{data.value.name}}
+          </template>
+          <template v-slot:cell(winrate)="data">
+            {{data.item.games_won / (data.item.games_won + data.item.games_lost)}}
+          </template>
+        </b-table>
       </b-container>
     </div>
   </div>
@@ -43,13 +27,18 @@ export default {
   data() {
     return {
       last_sorted: "none",
-      stats: ""
+      fields: [{key: 'player', label: 'Username', sortable: true}, 
+        {key: 'games_played', sortable: true}, 
+        {key: 'games_won', sortable: true}, 
+        {key: 'games_lost', sortable: true}, 
+        {key: 'games_drawn', sortable: true},
+        {key: 'winrate', label: 'Winrate', sortable: true}, 
+        {key: 'mvps', sortable: true}, 
+        {key: 'lvps', sortable: true}],
+      stats: []
     }
   },
   name: 'leaderboards',
-  props: {
-    searched: String
-  },
   created() {
     // fetch the data when the view is created and the data is
     // already being observed
@@ -81,54 +70,30 @@ export default {
     onSearch() {
       this.$router.push({name:'searchedLeaderboard', params:{search:this.searched}})
     },
-    goToPlayer(name) {
-      this.$router.push({name:'playerProfile', params:{name:name}})
+    goToPlayer(item) {
+      this.$router.push({name:'playerProfile', params:{name:item[0].player.name}})
     },
-    sortHelp(name) {
-      let comp, comp2
-      if (this.last_sorted == name) { 
-        comp = 1
-        this.last_sorted = "none"
-      } 
-      else {
-        this.last_sorted = name
-        comp = -1
+    sortCompare(aRow, bRow, key) {
+      var a = aRow[key] // or use Lodash `_.get()`
+      var b = bRow[key]
+      if (key === "winrate") {
+        a = aRow["games_won"] / (aRow["games_won"] + aRow["games_lost"]);
+        b = bRow["games_won"] / (bRow["games_won"] + bRow["games_lost"])
       }
-      comp2 = comp * -1
-      return [comp, comp2]
-    },
-
-    sortByUsername() {
-      let comp = this.sortHelp("name")
-      this.stats.sort((a, b) => a.player.name > b.player.name ? comp[1] : comp[0]);
-    },
-    sortByGamesPlayed() {
-      let comp = this.sortHelp("games_played")
-      this.stats.sort((a, b) => a.games_played > b.games_played ? comp[0] : comp[1]);
-    },
-    sortByGamesWon() {
-      let comp = this.sortHelp("games_won")
-      this.stats.sort((a, b) => a.games_won > b.games_won ? comp[0] : comp[1]);
-    },
-    sortByGamesLost() {
-      let comp = this.sortHelp("games_lost")
-      this.stats.sort((a, b) => a.games_lost > b.games_lost ? comp[0] : comp[1]);
-    },
-    sortByDraws() {
-      let comp = this.sortHelp("games_drawn")
-      this.stats.sort((a, b) => a.games_drawn > b.games_drawn ? comp[0] : comp[1]);
-    },
-    sortByWinrate() {
-      let comp = this.sortHelp("winrate")
-      this.stats.sort((a, b) => a.games_won / (a.games_won + a.games_lost) > b.games_won / (b.games_won + b.games_lost) ? comp[0] : comp[1]);
-    },
-    sortByMvps() {
-      let comp = this.sortHelp("mvps")
-      this.stats.sort((a, b) => a.mvps > b.mvps ? comp[0] : comp[1]);
-    },
-    sortByLvps() {
-      let comp = this.sortHelp("lvps")
-      this.stats.sort((a, b) => a.lvps > b.lvps ? comp[0] : comp[1]);
+      else if (key === 'player') {
+        a = a.name;
+        b = b.name;
+      }
+      if (
+        (typeof a === 'number' && typeof b === 'number') ||
+        (a instanceof Date && b instanceof Date)
+      ) {
+        // If both compared fields are native numbers or both are native dates
+        return a < b ? 1 : a > b ? -1 : 0
+      } else {
+        // Otherwise stringify the field data and use String.prototype.localeCompare
+        return a.localeCompare(b);
+      }
     }
   }
 }

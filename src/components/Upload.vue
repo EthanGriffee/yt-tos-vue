@@ -27,10 +27,7 @@
                 <picture-input
                     ref="pictureInput"
                     @change="onChanged"
-                    :width="650"
                     :removable="false"
-                    removeButtonClass="ui red button"
-                    :height="600"
                     accept="image/png"
                     buttonClass="ui button primary"
                     :customStrings="{
@@ -106,8 +103,6 @@ export default {
   },
   methods: {
     onChanged() {
-        var instance = this;
-
         const tex = require("aws-sdk/clients/textract");
 
         AWS.config.update({
@@ -127,9 +122,26 @@ export default {
         var textract = new tex({apiVersion: '2018-06-27'});
 
         var bucket = new AWS.S3({params: {Bucket: 'peanutland'}});
+        // expected format for file input : index {optional Legacy} mvpIndex lvpIndex Winner neWin(true or false) idoFytvid 
+        var partsArray = this.$refs.pictureInput.fileName.split(' ');
+        var curr_check = 1;
+        if (partsArray.length == 7 &&  partsArray[1] == "Legacy") {
+            this.legacy = true;
+            curr_check= 2;
+        }
+        if (partsArray.length - curr_check == 5) {
+            this.newgame.mvp =  partsArray[curr_check];
+            this.newgame.lvp =  partsArray[curr_check + 1];
+            this.newgame.game.winner =  partsArray[curr_check + 2].toUpperCase();
+            this.newgame.game.neWin = partsArray[curr_check + 3];
+            this.newgame.game.youtubeID = partsArray[curr_check + 4].substring(0, partsArray[curr_check + 4].indexOf('.'));
+        }
+
+         var instance = this;
+
+
         var imageFile = {Key: 'gameresult.png', Body: this.$refs.pictureInput.file};
         bucket.upload(imageFile, function (err) {
-            console.log(instance.legacy);
             if (err) console.log(err, err.stack); // an error occurred
             else {
                 textract.detectDocumentText(params, function (err, data) {
@@ -142,12 +154,12 @@ export default {
                     for(var block of data.Blocks) {
                         if (block.BlockType == "LINE") {
                             if (count == 0) {
-                                instance.$set(instance.newgame.players, current_user, block.Text)
+                                instance.$set(instance.newgame.players, current_user, block.Text.replace(/\s+/g, ''))
                                 count += 1;
                             }
                             else if (count == count_check) count += 1;
                             else {
-                                instance.$set(instance.newgame.roles, current_user, block.Text)
+                                instance.$set(instance.newgame.roles, current_user, block.Text.replace(/\s+/g, ''))
                                 count = 0;
                                 current_user += 1;
                             }
@@ -158,6 +170,7 @@ export default {
                 }});
             }
         })
+        console.log(this.newgame);
       },
     async onSubmit() {
 

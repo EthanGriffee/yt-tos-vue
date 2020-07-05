@@ -1,28 +1,30 @@
 <template>
   <div class=all>
       <div> GAME DETAILS: </div>
-      <div class=row>
-      <div class="col-lg-6 col-md-7 col-sm-12">
-        <ul v-for="played in players" :key="played.username">
-          <li v-bind:style="colorOfBox(played.role)" class=white >
-            <div class=row>
-              <div class=col-1> 
-                <font-awesome-icon v-if="determineWin(played)" icon="trophy" style="color:gold"/>
-              </div>
-              <div class=col-1> 
-                <font-awesome-icon v-if="game.lvp.name == played.player.name" icon="poo" style="color:brown" spin/>
-                <font-awesome-icon v-if="game.mvp.name == played.player.name" icon="award" style="color:black"/>
-              </div>
-              <div class=col-5 @click="goToPlayers(played.player.name)"> {{played.player.name}} </div>
-              <div class=col-5> {{played.role.name}} </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class= "col-lg-6 col-md-5 col-sm-12"> 
-        <iframe :src="youtubeURL" frameborder="0" allowfullscreen></iframe>
-      </div>
-      </div>
+      <b-container fluid="lg">
+        <b-row>
+          <b-col lg="6" md="7"> 
+            <ul class=black-border>
+              <li class="white black-border" v-for="played in players" :key="played.username" v-bind:style="colorOfBox(played.role)">
+                <b-row>
+                  <div class="col-1"> 
+                    <font-awesome-icon class="ml-2" v-if="determineWin(played)" icon="trophy" style="color:gold"/>
+                  </div>
+                  <div class=col-1> 
+                    <font-awesome-icon v-if="game.lvp.name == played.player.name" icon="poo" style="color:brown" spin/>
+                    <font-awesome-icon v-if="game.mvp.name == played.player.name" icon="award" style="color:black"/>
+                  </div>
+                  <div class=col-5 @click="goToPlayers(played.player.name)"> {{played.player.name}} </div>
+                  <div class=col-5> {{played.role.name}} </div>
+                </b-row>
+              </li>
+            </ul>
+          </b-col>
+          <b-col lg="6" md="5"> 
+            <iframe :src="youtubeURL" frameborder="0" allowfullscreen></iframe>
+          </b-col>
+        </b-row>
+      </b-container>
     </div>
 </template>
 
@@ -93,5 +95,8 @@ ul {
 }
 iframe {
   width:100%; height:100%;
+}
+.black-border {
+  border: 1px solid black;
 }
 </style>
