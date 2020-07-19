@@ -2,8 +2,10 @@
   <div>
     <div>
       <div> 
-        <div class="container-1">
-          <font-awesome-icon @click="onSearch()" class=search-icon icon="search" style="color:white"/>
+        <div class="container-1"> <!----
+        Currently doesnt work since change to bootstrap-vue, will be updated once backend is updated to only return a certain amount of stats
+        --->
+          <font-awesome-icon @click="onSearch()" class=search-icon icon="search" style="color:white"/> 
           <input v-model="searched" type="search" id="search" placeholder="Name..."/>
         </div>
       </div>

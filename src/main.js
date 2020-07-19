@@ -3,10 +3,10 @@ import App from './App.vue'
 import Game from './components/Game.vue'
 import GameList from './components/GameList.vue'
 import Home from './components/Home.vue'
-import Upload from './components/Upload.vue'
 import VueRouter from 'vue-router'
 import Leaderboards from './components/Leaderboards.vue'
 import PlayerProfile from './components/PlayerProfile.vue'
+import Login from './components/Login.vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -66,13 +66,6 @@ const router = new VueRouter({
       }
     },
     {
-      path:"/upload",
-      component: Upload,
-      meta: {
-        title: () => {return 'Upload - GeneralPeanut'}
-      }
-    },
-    {
       path:"/leaderboard?search=:search",
       component: Leaderboards,
       name: "searchedLeaderboard",
@@ -86,6 +79,14 @@ const router = new VueRouter({
       name: "playerProfile",
       meta: {
         title: () => {return 'Player - GeneralPeanut'}
+      }
+    },
+    {
+      path: "/login",
+      component: Login,
+      name: "login",
+      meta: {
+        title: () => {return 'Login = GeneralPeanut'}
       }
     }
   ]

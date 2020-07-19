@@ -7,15 +7,15 @@
             <ul class=black-border>
               <li class="white black-border" v-for="played in players" :key="played.username" v-bind:style="colorOfBox(played.role)">
                 <b-row>
-                  <div class="col-1"> 
+                  <b-col>
                     <font-awesome-icon class="ml-2" v-if="determineWin(played)" icon="trophy" style="color:gold"/>
-                  </div>
-                  <div class=col-1> 
+                  </b-col>
+                  <b-col>
                     <font-awesome-icon v-if="game.lvp.name == played.player.name" icon="poo" style="color:brown" spin/>
                     <font-awesome-icon v-if="game.mvp.name == played.player.name" icon="award" style="color:black"/>
-                  </div>
-                  <div class=col-5 @click="goToPlayers(played.player.name)"> {{played.player.name}} </div>
-                  <div class=col-5> {{played.role.name}} </div>
+                  </b-col>
+                  <b-col sm=5 @click="goToPlayers(played.player.name)"> {{played.player.name}} </b-col>
+                  <b-col sm=5> {{played.role.name}} </b-col>
                 </b-row>
               </li>
             </ul>

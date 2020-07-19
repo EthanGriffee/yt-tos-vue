@@ -3,14 +3,17 @@
     <div>
         <div class=mb-4>
           RECENT GAMES FROM {{playedGames[0].player.name}}
-          <ul v-for="played in playedGames" :key="played.username">
-            <li v-bind:style="colorOfBox(played.role)" class="mx-auto col-6 row justify-content-center align-items-center">
+          <b-row>
+            <b-col sm=6 v-for="played in playedGames" :key="played.username" v-bind:style="colorOfBox(played.role)" class="align-items-center">
               <font-awesome-icon v-if="determineWin(played)" icon="trophy" style="color:gold"/>
               <font-awesome-icon v-else icon="times" style="color:#990000"/>
               <div class="ml-3 mr-2" @click="goToGame(played.game.id)">{{played.game.id}} </div>
               {{played.role.name}}
-            </li>
-          </ul>
+            </b-col>
+            <b-col sm=6>
+              
+            </b-col>
+          </b-row>
         </div>
     </div>
     </div>
