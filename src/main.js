@@ -6,8 +6,8 @@ import Home from './components/Home.vue'
 import VueRouter from 'vue-router'
 import Leaderboards from './components/Leaderboards.vue'
 import PlayerProfile from './components/PlayerProfile.vue'
-import Login from './components/Login.vue'
 import BootstrapVue from 'bootstrap-vue'
+import RoleStatistics from './components/RoleStatistics.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -82,11 +82,11 @@ const router = new VueRouter({
       }
     },
     {
-      path: "/login",
-      component: Login,
-      name: "login",
+      path: "/rolestats",
+      component: RoleStatistics,
+      name: "roles",
       meta: {
-        title: () => {return 'Login = GeneralPeanut'}
+        title: () => {return 'Roles - GeneralPeanut'}
       }
     }
   ]

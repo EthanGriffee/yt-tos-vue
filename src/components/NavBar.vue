@@ -3,6 +3,7 @@
     <b-navbar-nav>
       <b-nav-item to="/home">Home</b-nav-item>
       <b-nav-item to="/games">Games</b-nav-item>
+      <b-nav-item to="/rolestats">Role Stats</b-nav-item>
       <b-nav-item to="/leaderboard">Leaderboard</b-nav-item>
     </b-navbar-nav>
   </b-navbar>
